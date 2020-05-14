@@ -26,7 +26,7 @@ import time
 def introduction():
     feedback = ''
     with open('feedback.json', 'r') as feedback_file:
-        feedback_dict = json.loads(feedback_file.read().decode("utf-8"))
+        feedback_dict = json.loads(feedback_file.read())
         for key, value in feedback_dict.items():
             feedback += "<p><i>Анононим, %s</i>: %s</p>" % (key, value)
     return """<html>
@@ -47,7 +47,7 @@ def index_page():
     feedback = flask.request.form.get('feedback')
     feedback_dict = {}
     with open('feedback.json', 'r') as feedback_file:
-        feedback_dict.update(json.loads(feedback_file.read().decode("utf-8")))
+        feedback_dict.update(json.loads(feedback_file.read()))
     feedback_dict[time.time()] = feedback
     with open('feedback.json', 'w') as feedback_file:
         feedback_file.write(json.dumps(feedback_dict))
